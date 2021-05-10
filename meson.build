@@ -76,6 +76,7 @@ ipu3_ipa_deps = [
 ]
 
 subdir('aiq')
+subdir('stats')
 
 mod = shared_module(ipa_name,
                     [ipu3_ipa_files],
