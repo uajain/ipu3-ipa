@@ -39,6 +39,8 @@ if cc.has_header_symbol('stdlib.h', 'secure_getenv', prefix : '#define _GNU_SOUR
     config_h.set('HAVE_SECURE_GETENV', 1)
 endif
 
+config_h.set('MACRO_KBL_AIC', 1)
+
 configure_file(output : 'config.h', configuration : config_h)
 common_arguments = [
     '-Wshadow',
