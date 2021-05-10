@@ -89,6 +89,7 @@ ipu3_ipa_deps = [
     ia_imaging_dep,
 ]
 
+subdir('aiq')
 subdir('data')
 subdir('src')
 
