@@ -75,6 +75,8 @@ ipu3_ipa_deps = [
     ia_imaging_dep,
 ]
 
+subdir('aiq')
+
 mod = shared_module(ipa_name,
                     [ipu3_ipa_files],
                     name_prefix : '',
