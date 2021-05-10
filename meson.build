@@ -60,10 +60,15 @@ ipu3_ipa_files = files([
 
 ipa_includes = include_directories('include')
 
+# IPU3 IPA Image Algorithms
+ia_imaging = subproject('intel')
+ia_imaging_dep = ia_imaging.get_variable('ia_imaging_dep')
+
 ipu3_ipa_deps = [
     libatomic,
     libcamera_dep,
     libcamera_helper_dep,
+    ia_imaging_dep,
 ]
 
 mod = shared_module(ipa_name,
