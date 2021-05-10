@@ -8,6 +8,8 @@ project('ipa_ipu3', 'c', 'cpp',
         ],
         license : 'LGPL 2.1+')
 
+subdir('data')
+
 ipa_name = 'ipa_ipu3'
 
 ipa_install_dir = get_option('libdir') / 'libcamera'
