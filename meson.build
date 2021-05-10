@@ -56,9 +56,13 @@ add_project_arguments(cpp_arguments, language : 'cpp')
 
 ipu3_ipa_files = files([
     'ipu3.cpp',
+    'binary_data.cpp',
 ])
 
-ipa_includes = include_directories('include')
+ipa_includes = [
+  include_directories('include'),
+  include_directories('.'),
+]
 
 # IPU3 IPA Image Algorithms
 ia_imaging = subproject('intel')

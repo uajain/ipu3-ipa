@@ -2,6 +2,7 @@
 
 libcamera_internal_headers = files([
   'buffer.h',
+  'file.h',
   'log.h',
   'utils.h',
 ])
