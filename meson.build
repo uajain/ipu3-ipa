@@ -48,6 +48,7 @@ common_arguments = [
 ipa_includes = [
     include_directories('include'),
     include_directories('include/ia_imaging'),
+    include_directories('.'),
 ]
 
 c_arguments = []
@@ -78,6 +79,7 @@ add_project_arguments(c_arguments, language : 'c')
 add_project_arguments(cpp_arguments, language : 'cpp')
 
 ipu3_ipa_files = files([
+    'binary_data.cpp',
     'ipu3.cpp',
 ])
 
