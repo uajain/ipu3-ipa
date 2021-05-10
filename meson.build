@@ -92,6 +92,7 @@ ipu3_ipa_deps = [
 subdir('aiq')
 subdir('data')
 subdir('src')
+subdir('stats')
 
 mod = shared_module(ipa_name,
                     [ipu3_ipa_files, libcamera_internal_sources],
