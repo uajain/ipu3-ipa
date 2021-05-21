@@ -69,6 +69,7 @@ ipu3_ipa_deps = [
     libcamera_dep,
 ]
 
+subdir('data')
 subdir('src')
 
 mod = shared_module(ipa_name,
