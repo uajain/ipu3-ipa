@@ -17,6 +17,22 @@ cc = meson.get_compiler('c')
 libcamera_dep = dependency('camera')
 libatomic = cc.find_library('atomic', required : false)
 
+ia_deps = [
+  cc.find_library('libia_aiq'),
+  cc.find_library('libia_exc'),
+  cc.find_library('libia_coordinate'),
+  cc.find_library('libia_nvm'),
+  cc.find_library('libia_cmc_parser'),
+  cc.find_library('libia_mkn'),
+  cc.find_library('libia_log'),
+  cc.find_library('libSkyCamAICKBL'),
+]
+
+ia_imaging_dep = declare_dependency(
+    dependencies : ia_deps,
+    include_directories : include_directories('include/ia_imaging'),
+)
+
 config_h = configuration_data()
 
 if cc.has_header_symbol('stdlib.h', 'secure_getenv', prefix : '#define _GNU_SOURCE')
@@ -31,6 +47,7 @@ common_arguments = [
 
 ipa_includes = [
     include_directories('include'),
+    include_directories('include/ia_imaging'),
 ]
 
 c_arguments = []
@@ -67,6 +84,7 @@ ipu3_ipa_files = files([
 ipu3_ipa_deps = [
     libatomic,
     libcamera_dep,
+    ia_imaging_dep,
 ]
 
 subdir('data')
