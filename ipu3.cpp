@@ -50,7 +50,7 @@ private:
 	void processControls(unsigned int frame, const ControlList &metadata);
 	void fillParams(unsigned int frame, ipu3_uapi_params *params);
 	void parseStatistics(unsigned int frame,
-			     const ControlList &metadata,
+			     int64_t frameTimestamp,
 			     const ipu3_uapi_stats_3a *stats);
 
 	void setControls(unsigned int frame);
@@ -222,7 +222,7 @@ void IPAIPU3::processEvent(const IPU3Event &event)
 		const ipu3_uapi_stats_3a *stats =
 			reinterpret_cast<ipu3_uapi_stats_3a *>(mem.data());
 
-		parseStatistics(event.frame, event.controls, stats);
+		parseStatistics(event.frame, event.frameTimestamp, stats);
 		break;
 	}
 	case EventFillParams: {
@@ -286,10 +286,11 @@ void IPAIPU3::fillParams(unsigned int frame, ipu3_uapi_params *params)
 }
 
 void IPAIPU3::parseStatistics(unsigned int frame,
-			      const ControlList &metadata,
+			      int64_t frameTimestamp,
 			      const ipu3_uapi_stats_3a *stats)
 {
 	ControlList ctrls(controls::controls);
+
 
 	/* \todo React to statistics and update internal state machine. */
 
@@ -297,15 +298,13 @@ void IPAIPU3::parseStatistics(unsigned int frame,
 	 * the AIQ library.
 	 */
 
-	ASSERT(metadata.contains(controls::SensorTimestamp));
-
-	int64_t timestamp = metadata.get(controls::SensorTimestamp);
+	ASSERT (frameTimestamp > 0);
 
 	/* todo:  We need to have map at least the timestamp of the buffer
 	 * of the statistics in to allow the library to identify how long
 	 * convergence takes. Without it = the algos will not converge. */
 
-	aiq_.setStatistics(frame, timestamp, results_, stats);
+	aiq_.setStatistics(frame, frameTimestamp, results_, stats);
 
 	IPU3Action op;
 	op.op = ActionMetadataReady;
