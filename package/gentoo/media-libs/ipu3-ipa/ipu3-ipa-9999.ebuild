@@ -17,6 +17,7 @@ KEYWORDS="~*"
 IUSE=""
 
 RDEPEND="
+	media-libs/intel-3a-libs-bin
 "
 
 DEPEND="
