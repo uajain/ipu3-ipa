@@ -59,6 +59,8 @@ private:
 
 	ControlInfoMap ctrls_;
 
+	IPACameraSensorInfo sensorInfo_;
+
 	/* Camera sensor controls. */
 	uint32_t exposure_;
 	uint32_t minExposure_;
@@ -141,6 +143,8 @@ void IPAIPU3::configure(const IPAConfigInfo &configInfo)
 {
 	if (configInfo.entityControls.empty())
 		return;
+
+	sensorInfo_ = configInfo.sensorInfo;
 
 	ctrls_ = configInfo.entityControls.at(0);
 
