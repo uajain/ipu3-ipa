@@ -310,6 +310,12 @@ void IPAIPU3::parseStatistics(unsigned int frame,
 
 	aiq_.setStatistics(frame, frameTimestamp, results_, stats);
 
+	/* Set frame durations from exposure results */
+	ia_aiq_exposure_sensor_parameters *sensorExposure = results_.ae()->exposures->sensor_exposure;
+	int64_t frameDuration = (sensorExposure->line_length_pixels * sensorExposure->frame_length_lines) /
+				(sensorInfo_.pixelRate / 1e6);
+	ctrls.set(controls::FrameDuration, frameDuration);
+
 	IPU3Action op;
 	op.op = ActionMetadataReady;
 	op.controls = ctrls;
